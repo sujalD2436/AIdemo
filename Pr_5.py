@@ -1,0 +1,154 @@
+from collections import deque
+
+start = [1, 2, 3,
+         4, 0, 6,
+         7, 5, 8]
+
+goal = [1, 2, 3,
+        4, 5, 6,
+        7, 8, 0]
+
+def neighbors(state):
+    moves = {
+        0:[1,3], 1:[0,2,4], 2:[1,5],
+        3:[0,4,6], 4:[1,3,5,7], 5:[2,4,8],
+        6:[3,7], 7:[4,6,8], 8:[5,7]
+    }
+
+    pos = state.index(0)
+    result = []
+
+    for m in moves[pos]:
+        new = state[:]
+        new[pos], new[m] = new[m], new[pos]
+        result.append(new)
+
+    return result
+
+queue = deque([start])
+visited = []
+
+while queue:
+    current = queue.popleft()
+
+    print(current)
+
+    if current == goal:
+        print("\nGoal Reached")
+        break
+
+    visited.append(current)
+
+    for n in neighbors(current):
+        if n not in visited and n not in queue:
+            queue.append(n)
+            
+'''
+8 - Puzzle Problem ===>
+
+Aim:-
+To implement the Breadth First Search (BFS) algorithm for solving the 8-Puzzle Problem and to find the shortest path from the initial state to the goal state.
+
+Objective:-
+To understand the concept of state space search.
+To study the Breadth First Search (BFS) algorithm.
+To solve the 8-Puzzle Problem using BFS.
+To explore the shortest path solution in a state space.
+To analyze the performance of BFS in problem-solving.
+
+Theory:-
+Artificial Intelligence (AI) aims to develop intelligent systems capable of solving complex problems by searching through a set of possible states.
+Search techniques are fundamental to AI because many real-world problems can be represented as a state space where each state represents a possible
+configuration of the problem.
+The 8-Puzzle Problem is one of the most popular examples used in Artificial Intelligence to demonstrate state space search techniques. 
+The puzzle consists of a 3×3 board containing eight numbered tiles and one blank space.
+The blank space can be moved in four possible directions (up, down, left, right) by swapping it with an adjacent tile.
+The objective of the puzzle is to transform an initial arrangement of tiles into a predefined goal arrangement by making a sequence of valid moves.
+
+State Space Representation:-
+A state in the 8-puzzle represents the arrangement of all tiles on the board. Each movement of the blank tile generates a new state.
+The collection of all possible states forms the state space.
+
+Example:-
+Initial State:
+1 2 3
+4 0 6
+7 5 8
+Goal State:
+1 2 3
+4 5 6
+7 8 0
+Here, '0' represents the blank tile.
+
+Breadth First Search (BFS):-
+Breadth First Search is an uninformed search algorithm that explores nodes level by level. It visits all nodes at the current depth before moving to the next depth level.
+BFS uses a Queue (FIFO – First In First Out) data structure. The algorithm starts from the initial state and systematically explores all neighboring states until the goal state is reached.
+
+Working of BFS:-
+Insert the initial state into the queue.
+Remove the front node from the queue.
+Check whether it is the goal state.
+If not, generate all possible successor states.
+Insert unvisited successor states into the queue.
+Repeat the process until the goal state is found.
+Because BFS explores states level by level, it guarantees the shortest solution path when all moves have equal cost.
+
+Characteristics of BFS:-
+Uninformed search technique.
+Uses FIFO queue.
+Complete algorithm.
+Optimal for equal-cost paths.
+Explores states level by level.
+Guarantees shortest path solution.
+
+Advantages of BFS:-
+Simple and easy to implement.
+Guarantees finding a solution if one exists.
+Finds the shortest path in an unweighted graph.
+Suitable for small and medium-sized search problems.
+
+Limitations of BFS:-
+Requires large memory space.
+May become slow for large state spaces.
+Stores all generated nodes in memory.
+Not suitable for very complex problems.
+
+Algorithm:-
+Start.
+Define the initial state and goal state.
+Create an empty queue.
+Insert the initial state into the queue.
+Remove the front state from the queue.
+Check if it matches the goal state.
+If yes, display the solution and stop.
+Otherwise, generate all possible neighboring states.
+Add unvisited neighboring states to the queue.
+Repeat steps 5–9 until the goal state is found.
+Stop.
+
+Observation:-
+Step            State Explored
+1               Initial State
+2               Neighbor States Generated
+3               Queue Updated
+4               Goal State Found
+
+Applications:-
+Puzzle solving (8-Puzzle, 15-Puzzle).
+Robot path planning.
+Navigation systems.
+Network routing algorithms.
+Social network analysis.
+Web crawling and indexing.
+Artificial Intelligence problem solving.
+Game state exploration.
+
+Result:-
+The Breadth First Search (BFS) algorithm was successfully implemented to solve the 8-Puzzle Problem.
+The algorithm explored states level by level and found the goal state while guaranteeing the shortest solution path.
+
+Conclusion:-
+The experiment successfully demonstrated the implementation of Breadth First Search for solving the 8-Puzzle Problem. 
+BFS systematically explored all possible states level by level and successfully reached the goal state, proving its effectiveness in solving planning 
+and state space search problems.
+'''
